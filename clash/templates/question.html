@@ -70,11 +70,11 @@
               style="margin-left: 10px;margin-right: 10px;">Question Hub</a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link active navvi" aria-current="page" href="../mysubs/<int:pk>"
-                style="margin-left: 10px;margin-right: 10px;">Submissions</a>
+            <a class="nav-link active navvi" aria-current="page" href="../mysubs/{{ques.id}}"
+                style="margin-left: 10px;margin-right: 10px;">Submissions</a> <!-- correct -->
         </li>
           <li class="nav-item">
-            <a class="nav-link navvi" aria-current="page" href="../leaderboard"
+            <a class="nav-link navvi" aria-current="page" href="{%url 'clash-leaderboard'%}"
               style="margin-left: 10px;margin-right: 10px;">Leaderboard</a>
           </li>
           <li class="nav-item ">
@@ -97,7 +97,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                      <button type="button" class="btn btn-danger">Logout</button>
+                      <a href="{%url 'logout'%}"  class="btn btn-danger">Logout</a>
                     </div>
                   </div>
                 </div>
@@ -146,8 +146,8 @@
 
       <div class="lcontmain">
         <textarea name="questionarea" id="questionarea" rows="10" readonly >
-<h1>{{ques.id}}) {{ques.title}}</h1>
-{{ques.body}}
+        {{ques.id}}) {{ques.title}}
+        {{ques.body}}
         </textarea>
       </div>
     </div>
@@ -155,7 +155,7 @@
     
       <div class="rcont">
       <!-- <form action="" method="post"> -->
-        <form action="{%url 'clash-sub' ques.id%}" method='post'>
+        <form action="{%url 'clash-sub' ques.id%}" method='post' id="qpgform">
           {%csrf_token%}
       <div class="rcontup">
         <div>
@@ -177,28 +177,25 @@
           <input type="button" value="Load Buffer" class="loadbuffer" id="Loadbuffer">
         </div>
         <div>
-          <button onclick="darkmode()" class="modebtns" id="darkmodebtn">
+          <a onclick="darkmode()" class="modebtns" id="darkmodebtn">
             <i class="fas fa-moon "></i>
-          </button>
-          <button onclick="lightmode()" class="modebtns" id="lightmodebtn">
+          </a>
+          <a onclick="lightmode()" class="modebtns" id="lightmodebtn">
             <i class="fas fa-sun"></i>
-          </button>
+          </a>
         </div>
       </div>
 
-      <textarea name="input" id="w3revi" cols="50" rows="4"></textarea>
+      <textarea name="input" id="w3revi" cols="50" rows="4" style="display:none"></textarea>
 
-      <div style=" display: block;" class="codeeditdiv" media="screen">
-        <div id="editor" media="screen">
-          
-        </div>
-      </div>
+      <div style=" display: block;" class="codeeditdiv" media="screen"><div id="editor" media="screen">/*your code goes here*/</div></div>
       <div class="rcontd">
         <div>
-          <input type="reset" value="Clear" class="rbtnd" onclick="cleareditor()">
+          <!-- onclick="cleareditor() , fn1()" -->
+          <input type="reset" value="Clear" class="rbtnd" onclick="fn1()">
         </div>
         <div>
-          <input type="submit" value="Submit" class="rbtnd">
+          <input type="submit" value="Submit" onclick="ecxvalues()" class="rbtnd">
         </div>
 
         <!-- Button trigger modal -->
@@ -230,7 +227,7 @@
                 <div class="cio">
                   <div class="ciod">
                     <h5>Custom Input:</h5>
-                    <textarea name="custom_input" id="custom_input" rows="6">{{input}}</textarea>
+                    <textarea name="custom_input" id="custominput" rows="6">{{input}}</textarea>
                   </div>
                   <div class="ciod">
                     <h5>Output:</h5>
@@ -240,7 +237,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary modalclosebtn" data-bs-dismiss="modal">Close</button>
-                <button value="Go" name="cust" type="submit">Submit</button>
+                <button value="Go" name="cust" type="submit" class="btn btn-success modalrunbtn" onclick="fn1()"><i class="fas fa-play"></i> Run</button>
 
                 <!-- <button type="button" class="btn btn-success modalrunbtn" name="cust"><i class="fas fa-play"></i> Run</button> -->
               </div>
@@ -261,6 +258,46 @@
   <script src="{% static 'ace-builds-master/src-noconflict/ext-language_tools.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/coding_editor.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/coding_script.js' %}"></script>
+  
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <!-- ... -->
+  <script type="text/javascript">
+      function fn1() {
+      const xhttp = new XMLHttpRequest();
+      console.log('1');
+      xhttp.onload = function() {
+        myFunction(this);
+      }
+      // xhttp.open("GET", "cd_catalog.xml");
+      // xhttp.send();
+    }
+    function myFunction(xml) {
+      const xmlDoc = xml.responseXML;
+      const x = xmlDoc.getElementsByTagName("{{output}}");
+      console.log('1');
+      
+      console.log(x);
+      
+      // let table="<tr><th>Artist</th><th>Title</th></tr>";
+      // for (let i = 0; i <x.length; i++) { 
+      //   table += "<tr><td>" +
+      //   x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+      //   "</td><td>" +
+      //   x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+      //   "</td></tr>";
+      // }
+      // document.getElementById("demo").innerHTML = table;
+    }
+
+  // function fn1(){
+  //   let pr=document.querySelector(".containermain");
+  //   pr.preventDefault();
+  //   console.log(pr);
+    
+    
+  // };
+  </script>
   <script src="https://kit.fontawesome.com/84ff0cdea4.js" crossorigin="anonymous"></script>
   <!-- Footer goes here -->
   <footer class="text-center fixed-bottom footerr">

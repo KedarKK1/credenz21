@@ -15,9 +15,9 @@ editor.session.setMode("ace/mode/c_cpp");
 editor.resize();
 editor.setOption("showPrintMargin", false);
 
-$("#myModal").on("shown.bs.modal", function () {
-  $("#myInput").trigger("focus");
-});
+// $("#myModal").on("shown.bs.modal", function () {
+//   $("#myInput").trigger("focus");
+// });
 
 function darkmode() {
   //   editor.setTheme("ace/theme/monokai");
@@ -37,11 +37,21 @@ function cleareditor() {
   // editor.setValue("/*your code goes here*/");
   let a = document.getElementById("textformat").value;
 
+
+  
   if (a == "py") {
     editor.setValue("#your code goes here");
   } else {
     editor.setValue("/*your code goes here*/");
   }
+}
+
+function ecxvalues(){
+  let z=editor.getValue();
+console.log(z);
+
+  console.log(z);
+  document.getElementById("w3revi").textContent=z;
 }
 
 function fnchange() {
