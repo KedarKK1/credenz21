@@ -1,0 +1,312 @@
+<!-- {% block body %}
+<h1>{{ques.id}}) {{ques.title}}</h1>
+<br>
+{{ques.body}}
+
+<h2>Please enter your code here: </h2>
+<form action="{%url 'clash-sub' ques.id%}" method='post'>
+  {%csrf_token%}
+  <textarea id="w3revi" name="input" rows="4" cols="50">{{code}}</textarea>
+  <br>
+  <select name="language" id="textformat">
+    <option value="py"> Python</option>
+    <option value="cpp"> C++</option>
+    <option value="c"> C </option>
+  </select>
+  <br>
+  <button type="submit">Submit</button>
+  <h2>Custom </h2>
+  <textarea id="w3rev" name="custom_input" rows="4" cols="50">{{input}}</textarea>
+  <br>
+  {{error}}<br>
+  <textarea id="w3ev" name="display" rows="4" cols="50">{{output}}</textarea>
+  <br>
+  <button value="Go" name="cust" type="submit">Submit</button>
+</form>
+<form action="{%url 'clash-mysub' ques.id%}" method='post'>
+  {%csrf_token%}
+  <br><br>
+  <button type="submit">My Submissions</button>
+</form>
+  {%endblock%} -->
+
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="Your Name" content="Your page" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coding Page</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <!-- <link rel="stylesheet" href="{% static '/css/coding_color.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/coding.css' %}">
+  <link rel="stylesheet" href="{% static 'css/coding_color.css' %}">
+
+
+</head>
+
+<body>
+  <!-- Navbar goes here -->
+  <nav class="navbar navbar-expand-lg navbarr">
+    <div class="container-fluid">
+      <a class="navbar-brand navvi" href="#" style="padding: 0px;"><img src="{% static 'img/clashwhite.png' %}" alt="Clash Logo"
+          height="30px"></a>
+      <a class="navbar-brand navvi timer" href="#" style="margin-left: 20px;">TIMER </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars" style="color: white;"></i>
+      </button>
+      <div class="collapse navbar-collapse stroke" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item ">
+            <a class="nav-link active navvi" aria-current="page" href="../question/"
+              style="margin-left: 10px;margin-right: 10px;">Question Hub</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link active navvi" aria-current="page" href="../mysubs/{{ques.id}}"
+                style="margin-left: 10px;margin-right: 10px;">Submissions</a> <!-- correct -->
+        </li>
+          <li class="nav-item">
+            <a class="nav-link navvi" aria-current="page" href="{%url 'clash-leaderboard'%}"
+              style="margin-left: 10px;margin-right: 10px;">Leaderboard</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link navvi" style="margin-left: 10px;margin-right: 10px;cursor:pointer;" data-bs-toggle="modal" data-bs-target="#LogoutModal">Logout</a>
+
+              <!-- <button type="button" class="btn btn-primary">
+                Launch demo modal
+              </button> -->
+              
+              <!-- Modal -->
+              <div class="modal fade" id="LogoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="LogoutModalLabel">Alert!</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you want to logout ?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <a href="{%url 'logout'%}"  class="btn btn-danger">Logout</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </li>
+        </ul>
+      </div>
+      <a class="navbar-brand navvi pisblogo" href="#" style="padding: 0px; margin-left: 20px;"><img src="{% static 'img/pisblogo.png' %}"
+          alt="PISB Logo" height="30px"></a>
+    </div>
+  </nav>
+  <!-- your code goes here -->
+  <div class=" container-fluid containermain">
+    <div class="lcont">
+      <div class="lcontup">
+        <div class="score ">
+          <h5>SCORE : 00</h5>
+        </div>
+
+        <div class="rank">
+          <h5>YOUR RANK : 00</h5>
+        </div>
+      </div>
+
+      <div class="lcontq">
+
+        <div class="questionbar">
+          <button type="button" class="btn btn-white" style="border-bottom: 2px solid white;">Q1</a></button>
+        </div>
+        <div class="questionbar">
+          <button type="button" class="btn btn-white">Q2</button>
+        </div>
+        <div class="questionbar">
+          <button type="button" class="btn btn-white">Q3</button>
+        </div>
+        <div class="questionbar">
+          <button type="button" class="btn btn-white">Q4</button>
+        </div>
+        <div class="questionbar">
+          <button type="button" class="btn btn-white">Q5</button>
+        </div>
+        <div class="questionbar">
+          <button type="button" class="btn btn-white">Q6</button>
+        </div>
+      </div>
+
+      <div class="lcontmain">
+        <textarea name="questionarea" id="questionarea" rows="10" readonly >
+        {{ques.id}}) {{ques.title}}
+        {{ques.body}}
+        </textarea>
+      </div>
+    </div>
+
+    
+      <div class="rcont">
+      <!-- <form action="" method="post"> -->
+        <form action="{%url 'clash-sub' ques.id%}" method='post' id="qpgform">
+          {%csrf_token%}
+      <div class="rcontup">
+        <div>
+          <select name="language" id="textformat" class="langchoose" onchange="fnchange()">
+            <option value="c">C</option>
+            <option value="cpp">C++</option>
+            <option value="py">Python</option>
+          </select>
+        </div>
+        <div>
+          <!-- <label for="choosefile" style="display: none;">hello</label>
+          <input type="file" name="Codefile" id="cfile" class="choosefile"> -->
+          <label class="btn custom-input-btn choosefile">
+            <input type="file" name="photo" style="display:none" accept=".cpp , .py , .c , .java " id="cfile">
+            Choose File
+          </label>
+        </div>
+        <div>
+          <input type="button" value="Load Buffer" class="loadbuffer" id="Loadbuffer">
+        </div>
+        <div>
+          <a onclick="darkmode()" class="modebtns" id="darkmodebtn">
+            <i class="fas fa-moon "></i>
+          </a>
+          <a onclick="lightmode()" class="modebtns" id="lightmodebtn">
+            <i class="fas fa-sun"></i>
+          </a>
+        </div>
+      </div>
+
+      <textarea name="input" id="w3revi" cols="50" rows="4" style="display:none"></textarea>
+
+      <div style=" display: block;" class="codeeditdiv" media="screen"><div id="editor" media="screen">/*your code goes here*/</div></div>
+      <div class="rcontd">
+        <div>
+          <!-- onclick="cleareditor() , fn1()" -->
+          <input type="reset" value="Clear" class="rbtnd" onclick="fn1()">
+        </div>
+        <div>
+          <input type="submit" value="Submit" onclick="ecxvalues()" class="rbtnd">
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn rbtnd" data-bs-toggle="modal" data-bs-target="#Codeeditor">
+          Test Against Custom Input
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="Codeeditor" tabindex="-1" aria-labelledby="CodeeditorLabel" aria-hidden="true">
+          <div class=" modal-fullscreen-sm-down modal-dialog modal-dialog-centered tacid">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="CodeeditorLabel">Enter Custom Input:</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body tacib">
+                <div class="inpf">
+                  <h5>Input Format:</h5>
+                  <!-- <br> -->
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium voluptatum iste nulla unde.
+                    Nemo, maxime. Facilis fugit recusandae enim perspiciatis.
+
+                  </p>
+                  <!-- <h6>Example:</h6>
+                  <textarea name="Sampleinput" id="sampleinput" rows="3" readonly></textarea> -->
+                </div>
+
+                <div class="cio">
+                  <div class="ciod">
+                    <h5>Custom Input:</h5>
+                    <textarea name="custom_input" id="custominput" rows="6">{{input}}</textarea>
+                  </div>
+                  <div class="ciod">
+                    <h5>Output:</h5>
+                    <textarea name="display" id="output" rows="6" readonly>{{output}}</textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modalclosebtn" data-bs-dismiss="modal">Close</button>
+                <button value="Go" name="cust" type="submit" class="btn btn-success modalrunbtn" onclick="fn1()"><i class="fas fa-play"></i> Run</button>
+
+                <!-- <button type="button" class="btn btn-success modalrunbtn" name="cust"><i class="fas fa-play"></i> Run</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+      <!-- </form> -->
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <!-- <script src="../static/ace-builds-master/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> -->
+  <script src="{% static 'ace-builds-master/src-noconflict/ace.js' %}" type="text/javascript" charset="utf-8"></script>
+  <!-- <script src="../static/ace-builds-master/src-noconflict/ext-language_tools.js"></script> -->
+  <script src="{% static 'ace-builds-master/src-noconflict/ext-language_tools.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/coding_editor.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/coding_script.js' %}"></script>
+  
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <!-- ... -->
+  <script type="text/javascript">
+      function fn1() {
+      const xhttp = new XMLHttpRequest();
+      console.log('1');
+      xhttp.onload = function() {
+        myFunction(this);
+      }
+      // xhttp.open("GET", "cd_catalog.xml");
+      // xhttp.send();
+    }
+    function myFunction(xml) {
+      const xmlDoc = xml.responseXML;
+      const x = xmlDoc.getElementsByTagName("{{output}}");
+      console.log('1');
+      
+      console.log(x);
+      
+      // let table="<tr><th>Artist</th><th>Title</th></tr>";
+      // for (let i = 0; i <x.length; i++) { 
+      //   table += "<tr><td>" +
+      //   x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+      //   "</td><td>" +
+      //   x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+      //   "</td></tr>";
+      // }
+      // document.getElementById("demo").innerHTML = table;
+    }
+
+  // function fn1(){
+  //   let pr=document.querySelector(".containermain");
+  //   pr.preventDefault();
+  //   console.log(pr);
+    
+    
+  // };
+  </script>
+  <script src="https://kit.fontawesome.com/84ff0cdea4.js" crossorigin="anonymous"></script>
+  <!-- Footer goes here -->
+  <footer class="text-center fixed-bottom footerr">
+    <div class="container-fluid">
+      <div class="footer-text pt-3 pb-3">PISB <span>&copy</span></div>
+    </div>
+  </footer>
+
+</body>
+
+
+</html>
