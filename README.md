@@ -1,4 +1,5 @@
 # CREDENZ-02-02-22
+<<<<<<< HEAD
 Created by Team Credenz @ 2022
 
 Backend Team - Jahan Chaware, Devesh Bedmutha, Safiya Amin, Devraj Shetake, Sarvesh Varhade
@@ -22,4 +23,6 @@ Mentors - Megha Dandapat, Sanket Kulkarni, Pranav Mohril,
 <img src="./Screenshots/admin_panel_question_2.png" alt="admin_panel_question_2" >
 
 
+=======
+>>>>>>> 85b52e92b1a93b5203aa87da931c80feca5d9c69
 #clash R2 and RC r1
