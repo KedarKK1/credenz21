@@ -1,7 +1,7 @@
 # CREDENZ-02-02-22
 Created by Team Credenz @ 2022
 
-Backend Team - Jahan Chaware, Devesh Bedmutha, Safiya Amin, Devraj Shetake, Sarvesh Varhade
+Backend Team - Jahan Chaware, Devesh Bedmutha, Safiya Amin, Tanmay Thanvi, Sarvesh Varhade, Devraj Shetake
 
 Frontend Team - Yash Patil, Kedar Koshti, Yash Mali, Kaushal Mahajan
 
