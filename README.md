@@ -37,3 +37,8 @@ Mentors - Megha Dandapat, Sanket Kulkarni, Pranav Mohril,
 <img src="./Screenshots/results_page.png" alt="results_page" >
 
 #clash R2 and RC r1
+
+
+## Contributors 😎 
+<p align="center"> <a href="https://github.com/KedarKK1/credenz21/graphs/contributors"> <img src="https://contrib.rocks/image?repo=KedarKK1/credenz21" /> </a> 
+</p>
